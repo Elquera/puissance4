@@ -22,7 +22,7 @@ import org.ronan.puissance4.modele.matrice.HorsIndexException;
  *
  */
 public class Partie {
-	
+
 	public static final int TAILLE_ALIGNEMENT_POUR_VICTOIRE = 4;
 
 
@@ -31,26 +31,26 @@ public class Partie {
 	 */
 	private Joueur joueurA;
 
-	
+
 	/**
 	 * Le joueurB
 	 */
 	private Joueur joueurB;
 
-	
+
 	/**
 	 * La grille de jeu
 	 */
 	private Grille grille;
-	
-	
-	
+
+
+
 	private static Partie partie = null;
-	
+
 	public static Partie getPartie(){
 		return partie;
 	}
-	
+
 	/**
 	 * Initialise la partie
 	 */
@@ -66,32 +66,32 @@ public class Partie {
 	 * Joue la partie jusqu'a qu'un joueur gagne, ou qu'il y'ai une égalité
 	 */
 	public void jouer(){
-		
+
 		boolean partieFinie = false;	
-		
+
 		// Par défaut le joueur qui démarre est le joueur A
 		Joueur joueurCourant = this.joueurA;
-		
+
 		// Boucle principale
 		while(!partieFinie){
-			
-		
-			
+
+
+
 			// Le joueur courant joue un tour
 			this.unTour(joueurCourant);
-			
-			
-			
+
+
+
 			// On regarde si la partie est finie
 			partieFinie = analyseVictoireJoueur(joueurCourant) || this.analyseEgalite();
-			
+
 			// On switch le joueur courant
 			joueurCourant = joueurSuivant(joueurCourant);
 		}
-		
+
 		System.out.println("La partie est terminée : ");
 		System.out.println(grille);
-		
+
 		// On analyse les résultats
 		if(this.analyseEgalite()){
 			System.out.println("Egalité");
@@ -103,13 +103,13 @@ public class Partie {
 			}
 		}
 	}
-	
-	
+
+
 	public Joueur joueurSuivant(Joueur joueur){
 		return (joueur == this.joueurA) ? this.joueurB : this.joueurA;
 	}
-	
-	
+
+
 	/**
 	 * Retourne vrai si le joueur donné a gagné
 	 * @param joueur Le joueur dont chercher à déterminer si il à gagner
@@ -125,8 +125,8 @@ public class Partie {
 	private boolean analyseEgalite(){
 		return this.grille.estGrillePleine();
 	}
-	
-	
+
+
 
 	/**
 	 * Fais jouer un tour au joueur donné.
@@ -135,38 +135,52 @@ public class Partie {
 	private void unTour(Joueur joueur){
 
 		System.out.println("C'est au joueur " + joueur.getNom() + " de jouer!");
-		
+
 		// On cherche l'opposant du joueur
 		Joueur opposant = ( (joueur == this.joueurA) ? this.joueurB : this.joueurA);
+
+		boolean coupJouerOk = true;
+		// Tant que le joueur n'a pas joué correctement on boucle
+		do{
+			// Réinit du boolean 
+			coupJouerOk = true;
+			
+			
+			// On récupère la colonne où jouer le jeton
+			int numeroColonneOuJouer = joueur.placerJeton(grille.copie(), joueur, opposant);
+
+			System.out.println("Le joueur " + joueur.getNom() + " joue dans la colonne "+ numeroColonneOuJouer);
+
+			// Création du jeton
+			Jeton jeton = new Jeton(joueur.getCouleur());
+
+			// Placage du jeton
+			try {
+				this.grille.insereJeton(numeroColonneOuJouer, jeton);
+			} catch (ColonnePleineException e) {
+				System.out.println("L'index proposé est celui d'une colonne pleine");
+				System.out.println("Veuillez rejouer");
+				coupJouerOk = false;
+			} catch (HorsIndexException e) {
+				System.out.println("L'index proposé n'est pas compris entre 1 et " + Grille.LARGEUR_GRILLE);
+				System.out.println("Veuillez rejouer");
+				coupJouerOk = false;
+			}
+
+		}while(!coupJouerOk);
 		
-		// On récupère la colonne où jouer le jeton
-		int numeroColonneOuJouer = joueur.placerJeton(grille.copie(), joueur, opposant);
-		
-		System.out.println("Le joueur " + joueur.getNom() + " joue dans la colonne "+ numeroColonneOuJouer);
-		
-		// Création du jeton
-		Jeton jeton = new Jeton(joueur.getCouleur());
-		
-		// Placage du jeton
-		try {
-			this.grille.insereJeton(numeroColonneOuJouer, jeton);
-		} catch (ColonnePleineException e) {
-			e.printStackTrace();
-		} catch (HorsIndexException e) {
-			e.printStackTrace();
-		}
 		System.out.println("Voici la grille résultante : ");
 		System.out.println(grille);
 		System.out.println("\n");
-		
+
 	}
-	
+
 	public static void main(String[] args) {
 		Partie partie = new Partie();
 		Partie.partie = partie;
 		partie.jouer();
 	}
-	
-	
-	
+
+
+
 }
