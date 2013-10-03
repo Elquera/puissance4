@@ -40,7 +40,21 @@ public class AlphaBeta {
 	 */
 	public int calculeColonneAJouer(Grille grille, Joueur joueur){
 		ArrayList<Integer> colonnesAJouer = new ArrayList<Integer>();
-		colonnesAJouer.add(new Integer(1));
+		
+		// On initialise les résultat avec la première colonne jouable pour éviter
+		// que l'IA ne selectionne une colonne non jouable par défaut
+		for(int i = 1; i <= Grille.LARGEUR_GRILLE; i++){
+			try {
+				if(!grille.estColonnePleine(i)){
+					colonnesAJouer.add(new Integer(i));
+					break;
+				}
+			} catch (HorsIndexException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
 		
 		double valeurDeJeu = Heuristique.MIN_NOTE;
 		for(int i=1; i <= Grille.LARGEUR_GRILLE; i++){
@@ -66,6 +80,9 @@ public class AlphaBeta {
 		}
 		
 		int numeroDeColonneAJouer = (int) (Math.random() * colonnesAJouer.size());
+		
+		
+		
 		return colonnesAJouer.get(numeroDeColonneAJouer);
 	}
 
