@@ -1,0 +1,9 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.ronan</groupId>
+  <artifactId>Puissance4</artifactId>
+  <version>1</version>
+  <name>Puissance4</name>
+  <description>Simple puissance 4 avec des IA à base de min max et d'alpha-beta</description>
+  <packaging>jar</packaging>
+</project>
