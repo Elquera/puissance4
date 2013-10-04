@@ -15,7 +15,7 @@ import org.ronan.puissance4.modele.partie.Partie;
  *
  *
  */
-public class HeuristiqueAllignementPossible extends Heuristique{
+public class HeuristiqueAlignementPossible extends Heuristique{
 
 	@Override
 	public double noteGrille(Grille grille,  Joueur joueur) {
