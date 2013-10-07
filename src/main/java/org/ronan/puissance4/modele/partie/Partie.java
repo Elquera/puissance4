@@ -3,7 +3,7 @@
  */
 package org.ronan.puissance4.modele.partie;
 
-import org.ronan.puissance4.alphabeta.heuristiques.HeuristiqueAllignementPossible;
+import org.ronan.puissance4.alphabeta.heuristiques.HeuristiqueAlignementPossible;
 import org.ronan.puissance4.modele.jeu.ColonnePleineException;
 import org.ronan.puissance4.modele.jeu.Grille;
 import org.ronan.puissance4.modele.jeu.Jeton;
@@ -58,7 +58,7 @@ public class Partie {
 		this.grille = new Grille();
 		this.joueurA = new JoueurInteractifClavier(new Rouge());
 		joueurA.setNom("Alfred");
-		this.joueurB = new JoueurAlphaBeta(new Jaune(), new HeuristiqueAllignementPossible());
+		this.joueurB = new JoueurAlphaBeta(new Jaune(), new HeuristiqueAlignementPossible());
 		this.joueurB.setNom("Bernard");
 	}
 
