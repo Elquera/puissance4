@@ -15,6 +15,7 @@ import org.ronan.puissance4.modele.partie.Partie;
 /**
  * Cet algorithme de recherche permet grace à une heuristique de déterminer où joueur le prochain coup. Il s'agit d'un algorithme 
  * alpha-beta
+ * 
  * @author Ronan Quintin
  *
  */
