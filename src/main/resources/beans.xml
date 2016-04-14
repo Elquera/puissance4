@@ -17,4 +17,6 @@
 	<bean id="joueurAlphaBetaHAP" class="org.ronan.puissance4.modele.joueur.JoueurAlphaBeta"/>
 	
 
+	<!-- COMMENTAIRE BIDON POUR TEST COMMIT PUSH --> 
+	
 </beans>
